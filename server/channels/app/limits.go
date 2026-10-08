@@ -10,8 +10,10 @@ import (
 )
 
 const (
-	maxUsersLimit     = 200
-	maxUsersHardLimit = 250
+	// Unlocked build: seat limits on the unlicensed edition removed
+	// (AGPLv3 self-modification). 0 means "no limit" to isAtUserLimit().
+	maxUsersLimit     = 0
+	maxUsersHardLimit = 0
 )
 
 // GetServerLimits returns the server's seat/post-history limits. The license-derived
