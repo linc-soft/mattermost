@@ -1704,11 +1704,11 @@ func (s *LogSettings) SetDefaults() {
 	}
 
 	if s.EnableDiagnostics == nil {
-		s.EnableDiagnostics = new(true)
+		s.EnableDiagnostics = new(false) // Unlocked build: diagnostics off by default
 	}
 
 	if s.EnableSentry == nil {
-		s.EnableSentry = new(*s.EnableDiagnostics)
+		s.EnableSentry = new(false) // Unlocked build: no Sentry by default
 	}
 
 	if s.ConsoleJson == nil {
@@ -2306,7 +2306,7 @@ func (s *EmailSettings) SetDefaults(isUpdate bool) {
 	}
 
 	if s.EnablePreviewModeBanner == nil {
-		s.EnablePreviewModeBanner = new(true)
+		s.EnablePreviewModeBanner = new(false) // Unlocked build: no cloud preview banner
 	}
 
 	if s.EnableSMTPAuth == nil {
@@ -2527,11 +2527,11 @@ func (s *AnnouncementSettings) SetDefaults() {
 	}
 
 	if s.AdminNoticesEnabled == nil {
-		s.AdminNoticesEnabled = new(true)
+		s.AdminNoticesEnabled = new(false) // Unlocked build: no notices.mattermost.com fetch
 	}
 
 	if s.UserNoticesEnabled == nil {
-		s.UserNoticesEnabled = new(true)
+		s.UserNoticesEnabled = new(false) // Unlocked build: no notices.mattermost.com fetch
 	}
 	if s.NoticesURL == nil {
 		s.NoticesURL = new(AnnouncementSettingsDefaultNoticesJsonURL)
@@ -3683,7 +3683,7 @@ func (s *PluginSettings) SetDefaults(ls LogSettings) {
 
 	if s.PluginStates[PluginIdNPS] == nil {
 		// Enable the NPS plugin by default if diagnostics are enabled
-		s.PluginStates[PluginIdNPS] = &PluginState{Enable: ls.EnableDiagnostics == nil || *ls.EnableDiagnostics}
+		s.PluginStates[PluginIdNPS] = &PluginState{Enable: false} // Unlocked build: NPS survey plugin off
 	}
 
 	if s.PluginStates[PluginIdCalls] == nil {
