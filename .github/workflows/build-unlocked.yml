@@ -1,0 +1,39 @@
+name: Build Unlocked Mattermost
+on:
+  push:
+    branches: [unlocked/**]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.7'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.11.0'
+      - name: Build webapp
+        run: |
+          cd webapp
+          npm ci --include=dev
+          npm run build --workspace=channels
+      - name: Build server
+        run: |
+          cd server
+          make build-linux-amd64 BUILD_NUMBER=11.11.1
+      - name: Package
+        run: |
+          cd server
+          make package-prep
+          mkdir -p dist/mattermost/bin
+          cp bin/mattermost dist/mattermost/bin/
+          tar -czf ../mattermost-11.11.1-team-unlocked-linux-amd64.tar.gz -C dist mattermost
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mattermost-unlocked
+          path: server/mattermost-11.11.1-team-unlocked-linux-amd64.tar.gz
