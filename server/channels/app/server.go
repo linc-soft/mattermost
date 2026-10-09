@@ -88,7 +88,7 @@ const (
 	debugScheduledPostJobInterval = 2 * time.Second
 )
 
-var SentryDSN = "https://eaf281226106b5bba68694d1316da21c@o94110.ingest.us.sentry.io/5212327"
+var SentryDSN = "" // Unlocked build: disabled
 
 type Server struct {
 	// RootRouter is the starting point for all HTTP requests to the server.
