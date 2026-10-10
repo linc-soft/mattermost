@@ -32,7 +32,7 @@ jobs:
           make package-prep
           mkdir -p dist/mattermost/bin
           cp bin/mattermost dist/mattermost/bin/
-          tar -czf ../mattermost-11.11.1-team-unlocked-linux-amd64.tar.gz -C dist mattermost
+          tar -czf mattermost-11.11.1-team-unlocked-linux-amd64.tar.gz -C dist mattermost
       - uses: actions/upload-artifact@v4
         with:
           name: mattermost-unlocked
